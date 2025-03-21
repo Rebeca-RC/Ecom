@@ -15,6 +15,7 @@ import Message from "../components/Message";
 import ProductCard from "../components/ProductCard";
 import HomePageSlider from "../components/HomePageSlider";
 import GenderCards from "../components/GenderCards";
+import TaxonomyCards from "../components/TaxonomyCards";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -30,9 +31,8 @@ const HomeScreen = () => {
   return (
     <>
       <HomePageSlider />
-      <Heading as="h2" mb="8" fontSize="xl">
-        Latest Products
-      </Heading>
+
+      <TaxonomyCards />
       <GenderCards />
     </>
   );

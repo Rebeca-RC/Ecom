@@ -28,8 +28,8 @@ const App = () => {
         as="main"
         mt="72px"
         direction="column"
-        py="6"
-        px="6"
+        // py="6"
+        // px="6"
         bgColor="#fce6e5"
       >
         <Routes>
