@@ -6,6 +6,7 @@ import {
   Tab,
   TabPanels,
   TabPanel,
+  Box,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,30 +34,52 @@ const WomanScreen = () => {
     "Earrings",
     "Bracelet",
     "Bangle",
-  ]; // Example filters
+  ];
+
+  const filteredProducts = products.filter((prod) =>
+    prod.category?.toLowerCase().includes("woman")
+  );
 
   return (
     <>
       <Heading as="h2" mb="8" fontSize="xl">
-        Latest Products
+        Latest Products for Woman
       </Heading>
 
       <Tabs
+        variant="unstyled"
         onChange={(index) =>
           setActiveFilter(
             filterOptions[index] === "All" ? "" : filterOptions[index]
           )
         }
       >
-        <TabList>
-          {filterOptions.map((filter) => (
-            <Tab key={filter}>{filter}</Tab>
+        <TabList display="flex" gap={4} flexWrap="wrap" mb={4}>
+          {filterOptions.map((filter, index) => (
+            <Tab
+              key={filter}
+              bg="gray.100"
+              _selected={{
+                bg: "gray.400", // Darker color for active tab
+                color: "white",
+                fontWeight: "bold",
+              }}
+              borderRadius="md"
+              px="6"
+              py="2"
+              boxShadow="md"
+              cursor="pointer"
+              minW="100px"
+              textAlign="center"
+            >
+              {filter}
+            </Tab>
           ))}
         </TabList>
 
         <TabPanels>
           {filterOptions.map((filter, index) => (
-            <TabPanel key={index}>
+            <TabPanel key={filter}>
               {loading ? (
                 <Loader />
               ) : error ? (
@@ -66,13 +89,21 @@ const WomanScreen = () => {
                   templateColumns={{
                     sm: "1fr",
                     md: "1fr 1fr",
-                    lg: "1fr 1fr 1fr 1fr 1fr ",
+                    lg: "1fr 1fr 1fr 1fr 1fr",
                   }}
                   gap="8"
                 >
-                  {products.map((prod) => (
-                    <ProductCard key={prod._id} product={prod} />
-                  ))}
+                  {filteredProducts
+                    .filter((prod) =>
+                      activeFilter
+                        ? prod.filter
+                            ?.toLowerCase()
+                            .includes(activeFilter.toLowerCase())
+                        : true
+                    )
+                    .map((prod) => (
+                      <ProductCard key={prod._id} product={prod} />
+                    ))}
                 </Grid>
               )}
             </TabPanel>
