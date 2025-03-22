@@ -22,6 +22,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Rating from "../components/Rating";
 import { PRODUCT_REVIEW_CREATE_RESET } from "../constants/productConstants";
+import ProductTable from "../components/ProductTable";
 
 const ProductScreen = () => {
   const { id } = useParams();
@@ -153,7 +154,6 @@ const ProductScreen = () => {
               </Button>
             </Flex>
           </Grid>
-
           {/* Review Display and Form */}
           <Box
             p="10"
@@ -224,6 +224,7 @@ const ProductScreen = () => {
               <Message>Please login to write a review</Message>
             )}
           </Box>
+          <ProductTable />
         </>
       )}
     </>
