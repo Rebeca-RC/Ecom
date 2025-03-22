@@ -16,6 +16,7 @@ import ProductCard from "../components/ProductCard";
 import HomePageSlider from "../components/HomePageSlider";
 import GenderCards from "../components/GenderCards";
 import TaxonomyCards from "../components/TaxonomyCards";
+import OfferCard from "../components/OfferCard";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -31,9 +32,9 @@ const HomeScreen = () => {
   return (
     <>
       <HomePageSlider />
-
       <TaxonomyCards />
       <GenderCards />
+      <OfferCard />
     </>
   );
 };

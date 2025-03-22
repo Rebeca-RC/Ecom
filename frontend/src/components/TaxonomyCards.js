@@ -9,7 +9,7 @@ import {
 
 const TaxonomyCards = () => {
   const data = [
-    { icon: FaExchangeAlt, title: "Tanishq Exchange" },
+    { icon: FaExchangeAlt, title: "GZ Exchange" },
     { icon: FaRing, title: "The Purity Guarantee" },
     { icon: FaHandshake, title: "Complete Transparency and Trust" },
     { icon: FaShieldAlt, title: "Lifetime Maintenance" },
@@ -17,7 +17,13 @@ const TaxonomyCards = () => {
 
   return (
     <Box textAlign="center" py={10}>
-      <Text fontSize="xl" fontWeight="bold" color="gray.700" mb={6}>
+      <Text
+        fontSize="5xl"
+        fontWeight="bold"
+        color="whiteAlpha"
+        mb={6}
+        fontStyle="italic"
+      >
         Trust us to be part of your precious moments and to deliver jewellery
         that you'll cherish forever.
       </Text>

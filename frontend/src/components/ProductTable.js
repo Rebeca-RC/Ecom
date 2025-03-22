@@ -1,16 +1,11 @@
 import {
   Box,
-  Flex,
+  Grid,
+  GridItem,
   Heading,
-  Image,
   Text,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
+  Divider,
+  Flex,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,59 +22,79 @@ const ProductTable = () => {
   const { loading, error, product } = productDetails;
 
   useEffect(() => {
-    dispatch(listProducts(id)); // Fetch product details based on ID
+    dispatch(listProducts(id));
   }, [dispatch, id]);
 
   return (
-    <Box>
+    <Box
+      maxW="600px"
+      mx="auto"
+      p="6"
+      borderWidth="1px"
+      borderRadius="lg"
+      bg="whiteAlpha.600"
+      shadow="lg"
+      mt={4}
+    >
       {loading ? (
         <Loader />
       ) : error ? (
         <Message type="error">{error}</Message>
       ) : (
         <Box>
-          {/* Product Image and Name Section */}
-          <Flex align="center" mb="6">
-            <Image
-              src={product.image}
-              alt={product.name}
-              w="300px"
-              h="300px"
-              objectFit="cover"
-              borderRadius="lg"
-              mr="6"
-            />
-            <Heading as="h2" fontSize="2xl">
-              {product.name}
-            </Heading>
-          </Flex>
+          <Heading as="h2" fontSize="xl" mb="4" textAlign="center">
+            Product Details
+          </Heading>
 
-          {/* Product Details Table */}
-          <TableContainer>
-            <Table variant="simple">
-              <Thead>
-                <Tr>
-                  <Th>Rate</Th>
-                  <Th>Weight</Th>
-                  <Th>GST</Th>
-                  <Th>Making Charges</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                <Tr>
-                  <Td>₹{product.rate}</Td>
-                  <Td>{product.weight}g</Td>
-                  <Td>{product.gst}%</Td>
-                  <Td>₹{product.makingCharges}</Td>
-                </Tr>
-              </Tbody>
-            </Table>
-          </TableContainer>
+          <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+            {/* Rate */}
+            <GridItem
+              p="4"
+              border="1px solid"
+              borderColor="gray.200"
+              borderRadius="md"
+            >
+              <Text fontWeight="bold">Rate</Text>
+              <Divider my="2" />
+              <Text>₹{product.rate}</Text>
+            </GridItem>
 
-          {/* Additional Info */}
-          <Text mt="4" fontSize="lg">
-            {product.description}
-          </Text>
+            {/* Weight */}
+            <GridItem
+              p="4"
+              border="1px solid"
+              borderColor="gray.200"
+              borderRadius="md"
+            >
+              <Text fontWeight="bold">Weight</Text>
+              <Divider my="2" />
+              <Text>{product.weight}g</Text>
+            </GridItem>
+
+            {/* GST */}
+            <GridItem
+              p="4"
+              border="1px solid"
+              borderColor="gray.200"
+              borderRadius="md"
+            >
+              <Text fontWeight="bold">GST</Text>
+              <Divider my="2" />
+              <Text>{product.gst}%</Text>
+            </GridItem>
+
+            {/* Making Charges */}
+            <GridItem
+              p="4"
+              border="1px solid"
+              borderColor="gray.200"
+              borderRadius="md"
+            >
+              <Text fontWeight="bold">Making Charges</Text>
+              <Divider my="2" />
+              <Text>₹{product.makingCharge}</Text>
+            </GridItem>
+          </Grid>
         </Box>
       )}
     </Box>

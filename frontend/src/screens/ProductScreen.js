@@ -78,7 +78,13 @@ const ProductScreen = () => {
         <>
           <Grid templateColumns="5fr 4fr 3fr" gap="10">
             {/* Column 1 */}
-            <Image src={product.image} alt={product.name} borderRadius="md" />
+            <Image
+              src={product.image}
+              alt={product.name}
+              borderRadius="md"
+              h={"400px"}
+              w={"400px"}
+            />
 
             {/* Column 2 */}
             <Flex direction="column">
@@ -154,10 +160,11 @@ const ProductScreen = () => {
               </Button>
             </Flex>
           </Grid>
+          <ProductTable />
           {/* Review Display and Form */}
           <Box
             p="10"
-            bgColor="white"
+            bg="whiteAlpha.800"
             rounded="md"
             mt="10"
             borderColor="gray.300"
@@ -224,7 +231,6 @@ const ProductScreen = () => {
               <Message>Please login to write a review</Message>
             )}
           </Box>
-          <ProductTable />
         </>
       )}
     </>
