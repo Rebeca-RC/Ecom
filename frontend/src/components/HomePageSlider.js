@@ -1,4 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import React from "react";
 
 const HomePageSlider = () => {
   const slides = [
@@ -7,41 +12,30 @@ const HomePageSlider = () => {
     { id: 3, image: "/images/third.png" },
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
-  };
-
   return (
-    <div className="relative w-100vh">
-      <img
-        src={slides[currentIndex].image}
-        alt={`Slide ${currentIndex + 1}`}
-        className="h-full w-full object-cover"
-      />
-
-      {/* Dots Navigation */}
-      <div className="absolute bottom-5 w-full flex justify-center">
-        {slides.map((_, index) => (
-          <div
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 mx-1 rounded-full cursor-pointer ${
-              currentIndex === index ? "bg-blue-500" : "bg-gray-400"
-            }`}
-          />
+    <Box position="relative" height="80vh" width="100%">
+      <Swiper
+        modules={[Pagination, Autoplay]}
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        loop={true}
+        style={{ height: "80vh" }}
+      >
+        {slides.map((slide) => (
+          <SwiperSlide key={slide.id}>
+            <Box
+              as="img"
+              src={slide.image}
+              alt={`Slide ${slide.id}`}
+              objectFit="cover"
+              width="100%"
+              height="100%"
+            />
+          </SwiperSlide>
         ))}
-      </div>
-    </div>
+      </Swiper>
+    </Box>
   );
 };
 

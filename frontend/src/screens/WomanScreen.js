@@ -8,7 +8,7 @@ import {
   TabPanel,
   Box,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
@@ -24,21 +24,28 @@ const WomanScreen = () => {
 
   useEffect(() => {
     dispatch(listProducts(activeFilter));
-  }, [dispatch, activeFilter]);
+  }, [dispatch]);
 
-  const filterOptions = [
-    "All",
-    "Chain",
-    "Ring",
-    "Necklace",
-    "Earrings",
-    "Bracelet",
-    "Bangle",
-  ];
+  useEffect(() => {
+    if (products.length > 0 && !activeFilter) {
+      setActiveFilter(filterOptions["all"]); // Automatically select "All" or first available filter
+    }
+  }, [products]);
 
-  const filteredProducts = products.filter((prod) =>
-    prod.category?.toLowerCase().includes("woman")
-  );
+  const filterOptions = useMemo(() => {
+    return [
+      "All",
+      ...new Set(products.map((prod) => prod.filter?.toLowerCase())),
+    ];
+  }, [products]);
+
+  const filteredProducts = products
+    .filter((prod) => prod.category?.toLowerCase().includes("woman"))
+    .filter((prod) =>
+      activeFilter
+        ? prod.filter?.toLowerCase().includes(activeFilter.toLowerCase())
+        : true
+    );
 
   return (
     <>

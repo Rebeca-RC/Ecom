@@ -12,12 +12,18 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { HiOutlineMenuAlt3, HiShoppingBag, HiUser } from "react-icons/hi";
+import {
+  HiInformationCircle,
+  HiOutlineMenuAlt3,
+  HiShoppingBag,
+  HiUser,
+} from "react-icons/hi";
 import { IoChevronDown } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { logout } from "../actions/userActions";
 import HeaderMenuItem from "./HeaderMenuItem";
+import { GrContactInfo } from "react-icons/gr";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -67,6 +73,9 @@ const Header = () => {
         width={{ base: "full", md: "auto" }}
         mt={{ base: "3", md: "0" }}
       >
+        <HeaderMenuItem url="/aboutus" icon={HiInformationCircle}>
+          About us
+        </HeaderMenuItem>
         <HeaderMenuItem url="/cart" icon={HiShoppingBag}>
           Cart
         </HeaderMenuItem>

@@ -1,88 +1,82 @@
-import React from "react";
-import { Box, Image, Heading, Flex } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  Box,
+  Image,
+  Flex,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 const OfferCard = () => {
-  const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedImage, setSelectedImage] = useState("");
 
-  const handleNavigation = (path) => {
-    navigate(path);
+  const offers = [
+    { id: 1, image: "/images/discount1.png", alt: "For Him" },
+    { id: 2, image: "/images/discount2.png", alt: "For Her" },
+    { id: 3, image: "/images/discount3.png", alt: "Special Offer" },
+  ];
+
+  const handleOpenModal = (image) => {
+    setSelectedImage(image);
+    onOpen();
   };
 
   return (
-    <Flex justify="center" gap={8} p={8}>
-      {/* Offer Card one */}
-      <Box
-        bg="blue.100"
-        borderRadius="2xl"
-        overflow="hidden"
-        boxShadow="lg"
-        cursor="pointer"
-        _hover={{ transform: "scale(1.05)", transition: "transform 0.3s" }}
-        w="300px"
-      >
-        <Image
-          src="/images/discount1.png"
-          alt="For Him"
-          w="100%"
-          h="300px"
-          objectFit="cover"
-        />
-        {/* <Box textAlign="center" py={4}>
-          <Heading color="blue.600" size="xl">
-            For HIM
-          </Heading>
-        </Box> */}
-      </Box>
+    <>
+      <Flex justify="center" gap={8} p={8}>
+        {offers.map((offer) => (
+          <Box
+            key={offer.id}
+            bg="gray.100"
+            borderRadius="2xl"
+            overflow="hidden"
+            boxShadow="lg"
+            cursor="pointer"
+            _hover={{ transform: "scale(1.05)", transition: "transform 0.3s" }}
+            w="300px"
+            onClick={() => handleOpenModal(offer.image)}
+          >
+            <Image
+              src={offer.image}
+              alt={offer.alt}
+              w="100%"
+              h="300px"
+              objectFit="cover"
+            />
+          </Box>
+        ))}
+      </Flex>
 
-      {/* Offer Card two */}
-      <Box
-        bg="pink.100"
-        borderRadius="2xl"
-        overflow="hidden"
-        boxShadow="lg"
-        cursor="pointer"
-        _hover={{ transform: "scale(1.05)", transition: "transform 0.3s" }}
-        w="300px"
-      >
-        <Image
-          src="/images/discount2.png"
-          alt="For Her"
-          w="100%"
-          h="300px"
-          objectFit="cover"
-        />
-        {/* <Box textAlign="center" py={4}>
-          <Heading color="pink.500" size="xl">
-            For HER
-          </Heading>
-        </Box> */}
-      </Box>
-
-      {/* Offer card three */}
-      <Box
-        bg="pink.100"
-        borderRadius="2xl"
-        overflow="hidden"
-        boxShadow="lg"
-        cursor="pointer"
-        _hover={{ transform: "scale(1.05)", transition: "transform 0.3s" }}
-        w="300px"
-      >
-        <Image
-          src="/images/discount3.png"
-          alt="For Her"
-          w="100%"
-          h="300px"
-          objectFit="cover"
-        />
-        {/* <Box textAlign="center" py={4}>
-          <Heading color="pink.500" size="xl">
-            For HER
-          </Heading>
-        </Box> */}
-      </Box>
-    </Flex>
+      {/* Modal for Enlarged Image */}
+      <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
+        <ModalOverlay />
+        <ModalContent borderRadius="2xl" boxShadow="2xl">
+          <ModalCloseButton />
+          <ModalBody p={4}>
+            <Box
+              borderRadius="2xl"
+              overflow="hidden"
+              boxShadow="lg"
+              w="100%"
+              h="70vh"
+            >
+              <Image
+                src={selectedImage}
+                alt="Expanded Offer"
+                w="100%"
+                h="100%"
+                objectFit="cover"
+              />
+            </Box>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
