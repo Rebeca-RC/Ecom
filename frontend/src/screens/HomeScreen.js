@@ -7,7 +7,6 @@ import {
   TabPanels,
   TabPanel,
   Text,
-  Button,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +18,7 @@ import HomePageSlider from "../components/HomePageSlider";
 import GenderCards from "../components/GenderCards";
 import TaxonomyCards from "../components/TaxonomyCards";
 import OfferCard from "../components/OfferCard";
+import JewelryViewer from "../components/JewelryViewer";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -30,25 +30,6 @@ const HomeScreen = () => {
   useEffect(() => {
     dispatch(listProducts(activeFilter));
   }, [dispatch, activeFilter]);
-
-  // Function to open local index.html file
-  const handleOpenFile = async () => {
-    try {
-      const [fileHandle] = await window.showOpenFilePicker({
-        types: [
-          { description: "HTML Files", accept: { "text/html": [".html"] } },
-        ],
-      });
-
-      const file = await fileHandle.getFile();
-      const fileURL = URL.createObjectURL(file);
-
-      // Open in a new tab
-      window.open(fileURL, "_blank");
-    } catch (error) {
-      console.error("Error opening file:", error);
-    }
-  };
 
   return (
     <>
@@ -65,18 +46,7 @@ const HomeScreen = () => {
         Offers
       </Text>
       <OfferCard />
-
-      {/* Button to Run index.html */}
-      <Button
-        mt={8}
-        colorScheme="teal"
-        size="lg"
-        onClick={handleOpenFile}
-        display="block"
-        mx="auto"
-      >
-        Run index.html
-      </Button>
+      <JewelryViewer />
     </>
   );
 };
